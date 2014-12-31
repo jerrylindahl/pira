@@ -58,6 +58,7 @@ class Chat(sleekxmpp.ClientXMPP):
         self.connect()
         self.process(threaded=True)
 
+
     def start(self, event):
         """
         Process the session_start event.
