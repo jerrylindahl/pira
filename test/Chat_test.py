@@ -14,10 +14,12 @@ class ChatTest(unittest.TestCase):
     def test_message_recieve(self):
         mock = Mock()
         self.chat.callBack = mock
-
-        self.chat.muc_message({"mucnick": "someoneelse", "body": "pirabot: Hi!"})
-
-        mock.msg_rec.assert_called_with("someoneelse", "pirabot: Hi!")
+        
+        bare_mock = Mock()
+        bare_mock.bare = "room"
+        self.chat.muc_message({"from": bare_mock, "mucnick": "someoneelse", "body": "pirabot: Hi!"})
+        
+        mock.msg_rec.assert_called_with("room", "someoneelse", "pirabot: Hi!")
 
 if __name__ == '__main__':
     unittest.main()

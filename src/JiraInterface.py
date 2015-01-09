@@ -31,23 +31,24 @@ class JiraInterface:
         #    incompleted_issues = gh.incompleted_issues(board_id, sprint_id)
         #    print("Incomplete issues: %s" % ', '.join(issue.key for issue in incompleted_issues))
 
-    def issue(self):
+    def issue(self, id):
         jira = JIRA(options={'server': self.jira_server}, basic_auth=(self.jira_user, self.jira_password))
 
 
-        issue = jira.issue('MFOL-18539')
-        print("issue " + issue.__str__())
-        for comment in issue.fields.comment.comments:
-            print("Comment" + comment.__str__())
+        issue = jira.issue(id)
+        return issue
+        #print("issue " + issue.__str__())
+        #for comment in issue.fields.comment.comments:
+        #    print("Comment" + comment.__str__())
 
 
 
-        print("summary " + issue.fields.summary)
+        #print("summary " + issue.fields.summary)
 
-        jra = jira.project('MFOL')
-        print("Jra " + jra.__str__())
+        #jra = jira.project('MFOL')
+        #print("Jra " + jra.__str__())
 
-        versions = jira.project_versions(jra)
-        [v.name for v in reversed(versions)]
-        for v in versions:
-            print("version " + v.__str__())
+        #versions = jira.project_versions(jra)
+        #[v.name for v in reversed(versions)]
+        #for v in versions:
+        #    print("version " + v.__str__())

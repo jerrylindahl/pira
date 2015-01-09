@@ -103,11 +103,7 @@ class Chat(sleekxmpp.ClientXMPP):
                    how it may be used.
         """
         if msg['mucnick'] != self.nick and self.nick in msg['body']:
-            print(self.callBack)
-            self.callBack.msg_rec(msg['mucnick'], msg['body'])
-            #self.send_message(mto=msg['from'].bare,
-            #                  mbody="I heard that, %s." % msg['mucnick'],
-            #                  mtype='groupchat')
+            self.callBack.msg_rec(msg['from'].bare, msg['mucnick'], msg['body'])
 
     def muc_online(self, presence):
         """

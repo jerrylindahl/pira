@@ -11,6 +11,4 @@ class ChatFactory:
         chat.register_plugin('xep_0030') # Service Discovery
         chat.register_plugin('xep_0045') # Multi-User Chat
         chat.register_plugin('xep_0199') # XMPP Ping
-        #chat.connect()
-        #chat.process(threaded=True)
         return chat
