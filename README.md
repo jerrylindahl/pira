@@ -21,12 +21,13 @@ piraBot can give contextual clues in a jabber chat. It can be set to listen to a
 
 Run tests with py.test from project root.
 
-Configure by copying pira.example.cfg to pira.cfg.
-
 ### Configuring
 Copy `pira.example.cfg` to `pira.config` and update the settings.
 
 ### Running
 
-```python3 -m src.main
-```
+`python3 -m src.main`
+
+
+### MongoDB
+Support for caching results in MongoDB is not implemented. Ignore for now.
