@@ -1,6 +1,7 @@
 
 from jira.client import JIRA
 from jira.client import GreenHopper
+from jira.exceptions import JIRAError
 
 class JiraInterface:
     def __init__(self, config):
@@ -34,8 +35,12 @@ class JiraInterface:
     def issue(self, id):
         jira = JIRA(options={'server': self.jira_server}, basic_auth=(self.jira_user, self.jira_password))
 
-
-        issue = jira.issue(id)
+        try:
+            return jira.issue(id)
+        except JIRAError as err:
+            print(err.args)
+            return "Error finding issue, \"" + err.args[1] + "\""
+        
         return issue
         #print("issue " + issue.__str__())
         #for comment in issue.fields.comment.comments:

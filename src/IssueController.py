@@ -8,6 +8,9 @@ class IssueController:
     
     def get_issue(self, id):
         jira_issue = self.jira.issue(id)
+        if isinstance(jira_issue, str):
+            return jira_issue
+        
         issue = Issue(id, jira_issue.fields.summary, self.config)
         return issue
 

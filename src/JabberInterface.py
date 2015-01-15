@@ -102,27 +102,11 @@ class Chat(sleekxmpp.ClientXMPP):
                    for stanza objects and the Message stanza to see
                    how it may be used.
         """
-        if msg['mucnick'] != self.nick and self.nick in msg['body']:
+        if msg['mucnick'] != self.nick:
             self.callBack.msg_rec(msg['from'].bare, msg['mucnick'], msg['body'])
-
+    
     def muc_online(self, presence):
-        """
-        Process a presence stanza from a chat room. In this case,
-        presences from users that have just come online are
-        handled by sending a welcome message that includes
-        the user's nickname and role in the room.
-
-        Arguments:
-            presence -- The received presence stanza. See the
-                        documentation for the Presence stanza
-                        to see how else it may be used.
-        """
-        if presence['muc']['nick'] != self.nick:
-            self.send_message(mto=presence['from'].bare,
-                              mbody="Hello, %s %s" % (presence['muc']['role'],
-                                                      presence['muc']['nick']),
-                              mtype='groupchat')
-
+        pass
 
 if __name__ == '__main__':
     # Setup the command line arguments.
