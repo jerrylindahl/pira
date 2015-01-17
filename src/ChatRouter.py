@@ -1,6 +1,5 @@
 import re
 
-from src.IssueController import Issue
 
 class ChatRouter:
 
@@ -22,24 +21,29 @@ class ChatRouter:
         if "sirjenkins" in body:
             return
 
-        issues = self.get_issues(body)
-        issue = None
-        
-        if len(issues):
+        issue_ids = self.get_issues(body)
+
+        issues = []
+        if len(issue_ids):
             if self.cache_enabled:
                 pass
             else:
-                issue = self.IssueController.get_issue(issues[0])
+                issues = self.IssueController.get_issues(issue_ids)
 
-        if isinstance(issue, str):
-            self.chat.send_message(mto=room, mbody=issue, mtype='groupchat')
-        elif isinstance(issue, Issue):
-            self.chat.send_message(
-                mto=room,
-                mbody=issue.id + " Summary: " + issue.summary,
-                mtype='groupchat',
-                mhtml=issue.html)
-        else:
+        for issue in issues:
+            if issue.error:
+                self.chat.send_message(
+                    mto=room,
+                    mbody=issue.id + " " + issue.error,
+                    mtype='groupchat')
+            else:
+                self.chat.send_message(
+                    mto=room,
+                    mbody=issue.id + " Summary: " + issue.summary,
+                    mtype='groupchat',
+                    mhtml=issue.html)
+
+        if len(issues) == 0:
             print("Invalid issue from issue controller")
 
     def get_issues(self, body):

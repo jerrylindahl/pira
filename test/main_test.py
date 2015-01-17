@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import Mock
 
 from src.main import Main
 
