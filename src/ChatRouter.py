@@ -12,6 +12,7 @@ class ChatRouter:
         self.config = config
         self.DataStore = None
         self.IssueController = None
+        self.quotes = None
 
     def run(self):
         self.chat.run()
@@ -20,7 +21,16 @@ class ChatRouter:
     def msg_rec(self, room, nick, body):
         if "sirjenkins" in nick:
             return
+        if body[0:2] == "42":
+            if self.quotes:
+                self.chat.send_message(
+                    mto=room,
+                    mbody=self.quotes.get_random(),
+                    mtype='groupchat')
+        else:
+            self.reply_to_issues(room, nick, body)
 
+    def reply_to_issues(self, room, nick, body):
         issue_ids = self.get_issues(body)
 
         issues = []

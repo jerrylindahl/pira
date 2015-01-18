@@ -25,6 +25,17 @@ class ChatRouterTest(unittest.TestCase):
     def test_init(self):
         self.cr.chat.callBack = self.mock
 
+    def test_ci_ignore(self):
+        result = self.cr.msg_rec("room", "sirjenkins", "Some long message with ABC-123")
+        self.assertEqual(self.issue_controller_mock.get_issues.call_count, 0)
+        self.assertEqual(result, None)
+
+    def test_42(self):
+        qmock = Mock()
+        self.cr.quotes = qmock
+        result = self.cr.msg_rec("room", "dude", "42")
+        qmock.get_random.assert_called_with()
+
     def test_message_receive(self):
         issues = [Issue("ABC-123", "Such summary", self.config), Issue("ABC-32", "Such summary", self.config)]
         self.issue_controller_mock.get_issues = Mock(return_value=issues)

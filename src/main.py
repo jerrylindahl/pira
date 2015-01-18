@@ -6,6 +6,7 @@ import configparser
 from src.ChatFactory import ChatFactory
 from src.ChatRouter import ChatRouter
 from src.IssueController import IssueController
+from src.Quotes import Quotes
 
 class Main():
     def __init__(self):
@@ -13,7 +14,7 @@ class Main():
         self.config = None
 
         self.sig_int = False
-        
+
         self.IssueController = None
         self.ChatRouter = None
 
@@ -31,12 +32,13 @@ class Main():
 
         self.init_chat()
         self.ChatRouter = ChatRouter(self.chat, self.config)
-        
+
         self.IssueController = IssueController(self.config)
         self.ChatRouter.IssueController = self.IssueController
-        
+        self.ChatRouter.quotes = Quotes()
+
         self.ChatRouter.run()
-        
+
         self.main_loop()
         self.shutdown()
 
