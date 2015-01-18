@@ -17,7 +17,7 @@ class JiraInterface:
             self.jira = JIRA(options={'server': self.jira_server}, basic_auth=(self.jira_user, self.jira_password))
 
         try:
-            return self.jira.issue(id)
+            #Note to self: Other fields to expand with status, description, created, (storypoint seems custom in jira)
+            return self.jira.issue(id, fields='summary')
         except JIRAError as err:
-            print(err.args)
             return "Error finding issue, \"" + err.args[1] + "\""
