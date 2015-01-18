@@ -18,7 +18,7 @@ class ChatRouter:
 
     # Interface methods:
     def msg_rec(self, room, nick, body):
-        if "sirjenkins" in body:
+        if "sirjenkins" in nick:
             return
 
         issue_ids = self.get_issues(body)
@@ -42,9 +42,6 @@ class ChatRouter:
                     mbody=issue.id + " Summary: " + issue.summary,
                     mtype='groupchat',
                     mhtml=issue.html)
-
-        if len(issues) == 0:
-            print("Invalid issue from issue controller")
 
     def get_issues(self, body):
         result = []
