@@ -7,7 +7,6 @@ class ChatRouter:
         self.chat = chat
         self.chat.callBack = self
         self.regex = config.get('Chat', 'issue-regex')
-        self.cache_enabled = config.getboolean('Cache', 'enabled')
 
         self.config = config
         self.DataStore = None
@@ -35,10 +34,7 @@ class ChatRouter:
 
         issues = []
         if len(issue_ids):
-            if self.cache_enabled:
-                pass
-            else:
-                issues = self.IssueController.get_issues(issue_ids)
+            issues = self.IssueController.get_issues(issue_ids)
 
         for issue in issues:
             if issue.error:
@@ -51,7 +47,7 @@ class ChatRouter:
                     mto=room,
                     mbody=issue.id + " Summary: " + issue.summary,
                     mtype='groupchat',
-                    mhtml=issue.html)
+                    mhtml=issue.slackMarkupSimple) #temporarily break jabber func. while on hackathon
 
     def get_issues(self, body):
         result = []

@@ -54,7 +54,7 @@ class Main():
 
     def init_chat(self):
         cf = ChatFactory()
-        self.chat = cf.getJabberChat(self.config)
+        self.chat = cf.getChat(self.config)
 
     def get_config(self, file):
         config = configparser.RawConfigParser()

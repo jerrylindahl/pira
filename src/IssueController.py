@@ -27,3 +27,12 @@ class Issue:
             self.html = "<p><a href='%(jira)s/browse/%(id)s'>%(id)s</a> Summary: %(summary)s</p>" % {
                 "jira": jira, "id": self.id, "summary": self.summary
             }
+
+            #Broken for now due to https://github.com/slackhq/hubot-slack/issues/114
+            self.slackMarkup = "<%(jira)s/browse/%(id)s|%(id)s> Summary: %(summary)s" % {
+                "jira": jira, "id": self.id, "summary": self.summary
+            }
+
+            self.slackMarkupSimple = "%(jira)s/browse/%(id)s Summary: %(summary)s" % {
+                "jira": jira, "id": self.id, "summary": self.summary
+            }
