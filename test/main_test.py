@@ -9,4 +9,4 @@ class ChatTest(unittest.TestCase):
 
     def test_settings(self):
         config = self.main.get_config('pira.example.cfg')
-        self.assertEqual(config.get('Chat', 'type'), "jabber")
+        self.assertEqual(config.get('Chat', 'client'), "Slack")
